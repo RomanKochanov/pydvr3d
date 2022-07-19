@@ -1,0 +1,15 @@
+*/__pycache__
+*/__pycache__/*
+
+*~
+*.lnk
+
+*.pyc
+*.bak
+
+build/
+dist/
+pydvr3d.egg-info/
+
+tests/*
+!tests/*.py
