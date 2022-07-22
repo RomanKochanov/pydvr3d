@@ -1,7 +1,6 @@
 <h1>Python wrapper for the DVR3d suite</h1>
 
-This is a detailed wrapper for the DRV3D program suite for calculating the 
-rotation-vibrational spectra of triatomic molecules.
+Python wrapper for the DRV3D program suite for calculating the ro-vibrational spectra of triatomic molecules.
 
 Links for the original DVR3D software:
 
