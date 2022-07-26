@@ -16,4 +16,4 @@ class Default(ConfigSection):
     rotlev_source_root = '/home/roman/work/dvr_me/src.2020/dvr3d/source'
     rotlev3b_sources = 'rotlev3b_segmented.f90; f02fjf.f'
     rotlev3z_sources = 'rotlev3z.f90; f02fjf.f'
-    rotlev3_sources = 'rotlev3.f90; f02fjf.f'
+    rotlev3_sources = 'rotlev3_segmented.f90; f02fjf.f'
