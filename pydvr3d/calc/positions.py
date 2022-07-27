@@ -588,15 +588,17 @@ class ROTLEV3B:
     def __init__(self,DVR3DRJZ_INSTANCE,**argv):
         # GENERAL PARAMETERS
         
+        self.stem = self.__class__.__name__.lower()
+        
         # path to executable
         self.exefile = argv.get('exefile','./rotlev3b.x')
 
         # Starter script name
-        self.starter_file = argv.get('starter_file','rotlev3b.sh')
+        self.starter_file = argv.get('starter_file',self.stem+'.sh')
     
         # input and output file names
-        self.input_file = argv.get('input_file','rotlev3b.inp')
-        self.output_file = argv.get('output_file','rotlev3b.out')
+        self.input_file = argv.get('input_file',self.stem+'.inp')
+        self.output_file = argv.get('output_file',self.stem+'.out')
     
         # CALCULATION PARAMETERS
     
@@ -673,12 +675,12 @@ class ROTLEV3B:
         # "ln -s fort.26 fort.4" is more space-efficient than "cp fort.26 fort.4"
         text = \
         '#!/bin/sh' + '\n\n' + \
-        'echo running rotlev3b ...\n\n' + \
+        'echo running %s ...\n\n'%self.stem + \
         'ln -s fort.26 fort.4' + '\n\n' + \
         self.exefile + ' < ' + \
         self.input_file + ' > ' + \
         self.output_file + '\n\n' + \
-        'echo rotlev3b ok'
+        'echo %s ok'%self.stem
         return text
         
     def save_starter(self,dirname='./'):
