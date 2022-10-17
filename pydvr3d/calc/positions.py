@@ -918,12 +918,12 @@ def get_rovib_state(VARSPACE):
     masses = get_dvr_masses(VARSPACE)
     coords = VARSPACE['DVR3DRJZ_INPUT']['coordinates']
     if coords.lower() in ['radau']:
-        if masses[1]==masses[2]:
+        if masses[0]==masses[1]:
             idia = -2 # "Radau homonuclear"
         else:
             idia = -1 # "Radau heteronuclear"
     elif coords.lower() in ['scattering', 'jacobi']:
-        if masses[1]==masses[2]:
+        if masses[0]==masses[1]:
             idia = 2 # "Scattering homonuclear"
         else:
             idia = 1 # "Scattering heteronuclear"
@@ -1032,18 +1032,22 @@ def generate_build_script_dvr3drjz(rovib_state,VARSPACE):
     pes_source_root = PES_SOURCE['pes_source_root']
     pes_sources_common = PES_SOURCE['pes_sources_common']
     pes_sources_model = PES_SOURCE['pes_sources_model']
+    pes_sources_aux = PES_SOURCE['pes_sources_aux']
     dvr3drjz_source_root = DVR3DRJZ_SOURCE['dvr3drjz_source_root']
     dvr3drjz_sources = DVR3DRJZ_SOURCE['dvr3drjz_sources']
+    
+    source_files = [os.path.join(pes_source_root,p.strip()) for p in pes_sources_common.split(';')]
+    source_files += [os.path.join(pes_source_root,pes_sources_model)]
+    source_files +=  [os.path.join(p.strip()) for p in pes_sources_aux.split(';')]
+    source_files += [os.path.join(dvr3drjz_source_root,p.strip()) for p in dvr3drjz_sources.split(';')]
+    
+    source_files = join_sources(source_files)
     
     build_file_content = dvr3drjz_build_template.format(
         compiler = BUILD['compiler'],
         exefile = RESOURCES['dvr3drjz_executable'],
         comp_flags = BUILD['compiler_options'],
-        source_files = join_sources(
-            [os.path.join(pes_source_root,p.strip()) for p in pes_sources_common.split(';')]+
-            [os.path.join(pes_source_root,pes_sources_model)]+
-            [os.path.join(dvr3drjz_source_root,p.strip()) for p in dvr3drjz_sources.split(';')]
-        ),
+        source_files = source_files,
         link_line_mkl = BUILD['linker_options'],
     )
     
