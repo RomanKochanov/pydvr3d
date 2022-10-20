@@ -90,7 +90,7 @@ def main_positions():
             VARSPACE.merge_section(section)
         VARSPACE['GENERAL']['project'] = args.startproject
         if args.merge:
-            VARSPACE.load(args.merge,ignore_empty_values=True)
+            VARSPACE.load_ini(args.merge,ignore_empty_values=True)
         if args.set:
             set_parameters(VARSPACE,args.set)
         posit.startproject(VARSPACE)
@@ -98,7 +98,7 @@ def main_positions():
         if not args.config:
             print('Error: config must be specified (use --config option).')
             sys.exit()
-        VARSPACE.load(args.config)
+        VARSPACE.load_ini(args.config)
     
     if args.init:
         posit.init(VARSPACE)

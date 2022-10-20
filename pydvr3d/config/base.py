@@ -1,4 +1,5 @@
 import re
+import json
 import copy
 import inspect
 from collections import OrderedDict
@@ -155,19 +156,41 @@ class Config:
 
     def __getitem__(self,section_name):
         return self.__sections__[section_name]
+                   
+    def dump(self):
+        """ Dump dictionary """
+        dct = {}
+        for section_name in self.__sections__:
+            section = self[section_name]
+            dct[section_name] = section.__get_members__()
+        return dct
+            
+    def load(self,dct,ignore_empty_values=False):
+        """ Load dictionary """
+        for section in dct:
+            pardict = dct[section]
+            self[section].__set_members__(kwargs=pardict,
+                ignore_empty_values=ignore_empty_values)
         
-    def save(self,filename):
-        with open(filename,'w') as f:
-            f.write(self.buffer)
-        
-    def load(self,filename,ignore_empty_values=False):
+    def load_json(self,filename,ignore_empty_values=False):
+        """ Load json config file """
+        with open(filename) as f:
+            dct = json.load(f)
+            self.load(dct)
+
+    def load_ini(self,filename,ignore_empty_values=False):
+        """ Load ini config file """
         conf_ = configparser.ConfigParser(allow_no_value=True)
         conf_.read(filename)
         sections = conf_.sections()
         for section in sections:
             pardict = dict(conf_.items(section))
             self[section].__set_members__(kwargs=pardict,
-                ignore_empty_values=ignore_empty_values)
+                ignore_empty_values=ignore_empty_values)    
+                
+    def save_ini(self,filename):
+        with open(filename,'w') as f:
+            f.write(self.buffer)
  
 def print_help(modules,more=False):
     """ 

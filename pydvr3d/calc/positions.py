@@ -1000,7 +1000,7 @@ def startproject(VARSPACE):
     os.mkdir(project_dir)
     config_name = 'config.ini'
     config_path = os.path.join(project_dir,config_name)
-    VARSPACE.save(config_path)
+    VARSPACE.save_ini(config_path)
     print('Created new project: %s'%project_dir)
     print('New config file has been added: %s'%config_path)
 
