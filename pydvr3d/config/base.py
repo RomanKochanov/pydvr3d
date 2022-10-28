@@ -60,9 +60,10 @@ class ConfigSection:
         return members
 
     def __get_members__(self):
+        template_keys = self.__class__.__get_keys_from_template__()
         members = copy.deepcopy(self.__get_members_from_class__())
         members.update(copy.deepcopy(self.__get_members_from_instance__()))
-        return members
+        return {key:members[key] for key in template_keys if key in members}
 
     def __set_members__(self,kwargs,ignore_empty_values=True):
         allowed_members = self.__get_members_from_instance__()
@@ -75,6 +76,16 @@ class ConfigSection:
                 setattr(self,kwarg,kwargs[kwarg])
             else:
                 raise Exception('the key "%s" is not in dict'%kwarg)
+
+    def __import_config_items__(self,items,ignore_empty_values=True):
+        """ Import raw items of the config from configparser """
+        pardict = {}
+        for key,value in items:
+            tp = getattr(self,'__%s__type__'%key)
+            value = tp.loads(value)
+            pardict[key] = value
+        self.__set_members__(kwargs=pardict,
+            ignore_empty_values=ignore_empty_values)
 
     @property
     def buffer(self):
@@ -177,6 +188,12 @@ class Config:
         with open(filename) as f:
             dct = json.load(f)
             self.load(dct)
+            
+    def save_json(self,filename):
+        """ Save config to json file """
+        with open(filename,'w') as f:
+            dct = self.dump()
+            f.write(json.dumps(dct,indent=3))
 
     def load_ini(self,filename,ignore_empty_values=False):
         """ Load ini config file """
@@ -184,9 +201,9 @@ class Config:
         conf_.read(filename)
         sections = conf_.sections()
         for section in sections:
-            pardict = dict(conf_.items(section))
-            self[section].__set_members__(kwargs=pardict,
-                ignore_empty_values=ignore_empty_values)    
+            items = conf_.items(section)
+            self[section].__import_config_items__(items,
+                ignore_empty_values=ignore_empty_values)
                 
     def save_ini(self,filename):
         with open(filename,'w') as f:

@@ -1,4 +1,5 @@
 from ..base import ConfigSection
+from .. import types
 
 class Default(ConfigSection):
     __name__ = 'DVR3DRJZ_INPUT'
@@ -52,6 +53,26 @@ class Default(ConfigSection):
 {diss2}
 {we2}
 """
+    # parameter types
+    __atomic_masses__type__ = types.Boolean
+    __coordinates__type__ = types.String
+    __prt__type__ = types.String
+    __var__type__ = types.String
+    __ncoord__type__ = types.Integer
+    __npnt2__type__ = types.Integer
+    __neval__type__ = types.Integer
+    __nalf__type__ = types.Integer
+    __max2d__type__ = types.Integer
+    __max3d__type__ = types.Integer
+    __npnt1__type__ = types.Integer
+    __re1__type__ = types.Float
+    __diss1__type__ = types.Float
+    __we1__type__ = types.Float
+    __re2__type__ = types.Float
+    __diss2__type__ = types.Float
+    __we2__type__ = types.Float
+    
+    # parameter defaults
     atomic_masses = True
     coordinates = 'radau'
     prt = '&PRT ztran=.true.,  ztheta=.false., zlin=.true. &END'

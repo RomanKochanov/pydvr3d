@@ -1,4 +1,5 @@
 from ..base import ConfigSection
+from .. import types
 
 class Default(ConfigSection):
     __name__ = 'PES_SOURCE'
@@ -20,6 +21,12 @@ class Default(ConfigSection):
 # Path to PES parameters file
 {pes_parameters_path}
 """
+    # parameter types
+    __pes_source_root__type__ = types.String
+    __pes_sources_common__type__ = types.String
+    __pes_sources_model__type__ = types.String
+    __pes_sources_aux__type__ = types.String
+    __pes_parameters_path__type__ = types.String
     
 class PES_EXPMASS(Default):
     """ Generic template for the expmass-formatted PES """

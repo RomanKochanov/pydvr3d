@@ -1,4 +1,5 @@
 from ..base import ConfigSection
+from .. import types
 
 class Default(ConfigSection):
     __name__ = 'MOLECULE'
@@ -24,6 +25,18 @@ class Default(ConfigSection):
 # Zero point energy, cm-1
 {ezero}
 """
+    # parameter types
+    __isotope_left__type__ = types.String
+    __isotope_center__type__ = types.String
+    __isotope_right__type__ = types.String
+    __isotope_left_mass__type__ = types.Float
+    __isotope_center_mass__type__ = types.Float
+    __isotope_right_mass__type__ = types.Float
+    __ediss__type__ = types.Float
+    __ediss_offset__type__ = types.Float
+    __ezero__type__ = types.Float
+    
+    # parameter defaults
     ezero = 0.0
     ediss_offset = 5000.0
         

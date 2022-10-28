@@ -1,4 +1,5 @@
 from ..base import ConfigSection
+from .. import types
 
 class Default(ConfigSection):
     __name__ = 'CREATE'
@@ -17,6 +18,13 @@ class Default(ConfigSection):
 # Creation summary.
 {summary}
 """
+    # parameter types
+    __states__type__ = types.String
+    __job_script__type__ = types.String
+    __job_manager__type__ = types.String
+    __summary__type__ = types.String
+    
+    # parameter defaults
     states = 'states.txt'
     job_script = 'job.sh'
     job_manager = 'Shell'

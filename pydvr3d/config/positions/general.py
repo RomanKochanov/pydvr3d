@@ -1,4 +1,5 @@
 from ..base import ConfigSection
+from .. import types
 
 class Default(ConfigSection):
     __name__ = 'GENERAL'
@@ -8,3 +9,5 @@ class Default(ConfigSection):
 # Name of the project.
 {project}
 """
+    # parameter types
+    __project__type__ = types.String

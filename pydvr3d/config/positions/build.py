@@ -1,4 +1,5 @@
 from ..base import ConfigSection
+from .. import types
 
 class Default(ConfigSection):
     __name__ = 'BUILD'
@@ -14,6 +15,10 @@ class Default(ConfigSection):
 # Linker options.
 {linker_options}
 """
+    # parameter types
+    __compiler__type__ = types.String
+    __compiler_options__type__ = types.String
+    __linker_options__type__ = types.String
 
 class Linux_ifort_oneAPI_2021_static(Default):
     """

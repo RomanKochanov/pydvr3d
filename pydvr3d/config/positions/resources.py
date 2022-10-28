@@ -1,4 +1,5 @@
 from ..base import ConfigSection
+from .. import types
 
 class Default(ConfigSection):
     __name__ = 'RESOURCES'
@@ -25,6 +26,21 @@ class Default(ConfigSection):
 {rotlev3z_executable}
 {rotlev3z_input_template}
 """
+    # parameter types
+    __dvr3drjz_build_script__type__ = types.String
+    __dvr3drjz_executable__type__ = types.String
+    __dvr3drjz_input_template__type__ = types.String
+    __rotlev3_build_script__type__ = types.String
+    __rotlev3_executable__type__ = types.String
+    __rotlev3_input_template__type__ = types.String
+    __rotlev3b_build_script__type__ = types.String
+    __rotlev3b_executable__type__ = types.String
+    __rotlev3b_input_template__type__ = types.String
+    __rotlev3z_build_script__type__ = types.String
+    __rotlev3z_executable__type__ = types.String
+    __rotlev3z_input_template__type__= types.String
+    
+    # parameter defaults
     dvr3drjz_build_script = 'build_dvr3drjz.sh'
     dvr3drjz_executable = 'dvr3drjz.x'
     dvr3drjz_input_template = 'dvr3drjz.inp'

@@ -1,4 +1,5 @@
 from ..base import ConfigSection
+from .. import types
 
 class Default(ConfigSection):
     """ Default generate the pure vibrations """
@@ -21,6 +22,14 @@ class Default(ConfigSection):
 # Stage output for DVR-labeled states.
 {output}
 """
+    # parameter types
+    __jrot__type__ = types.String
+    __kmin__type__ = types.String
+    __ipar__type__ = types.String
+    __pattern__type__ = types.String
+    __output__type__ = types.String
+    
+    # parameter defaults
     jrot = '0'
     kmin = '0,1'
     ipar = '0,1'
